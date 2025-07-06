@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`ejercicios` (
   CONSTRAINT `fk_ejercicios_grupos_musculares1`
     FOREIGN KEY (`grupos_musculares_id`)
     REFERENCES `rutina_go`.`grupos_musculares` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_ejercicios_dificultad1`
     FOREIGN KEY (`dificultad_id`)
     REFERENCES `rutina_go`.`dificultad` (`id`)
@@ -81,8 +81,8 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`metodos` (
   CONSTRAINT `fk_metodos_dificultad1`
     FOREIGN KEY (`dificultad_id`)
     REFERENCES `rutina_go`.`dificultad` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 17
 DEFAULT CHARACTER SET = utf8mb3;
@@ -99,7 +99,9 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`objetivos` (
   INDEX `id_metodos` (`id_metodos` ASC) VISIBLE,
   CONSTRAINT `objetivos_ibfk_1`
     FOREIGN KEY (`id_metodos`)
-    REFERENCES `rutina_go`.`metodos` (`id`))
+    REFERENCES `rutina_go`.`metodos` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -124,18 +126,18 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`rutinas` (
   CONSTRAINT `fk_rutinas_objetivos1`
     FOREIGN KEY (`objetivos_id`)
     REFERENCES `rutina_go`.`objetivos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_rutinas_metodos1`
     FOREIGN KEY (`metodos_id`)
     REFERENCES `rutina_go`.`metodos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_rutinas_dificultad1`
     FOREIGN KEY (`dificultad_id`)
     REFERENCES `rutina_go`.`dificultad` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 2006681955
 DEFAULT CHARACTER SET = utf8mb3;
@@ -159,13 +161,13 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`ejercicios_rutinas` (
   CONSTRAINT `fk_ejercicios_rutinas_ejercicios1`
     FOREIGN KEY (`ejercicios_id`)
     REFERENCES `rutina_go`.`ejercicios` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_ejercicios_rutinas_rutinas1`
     FOREIGN KEY (`rutinas_id`)
     REFERENCES `rutina_go`.`rutinas` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 2132754044
 DEFAULT CHARACTER SET = utf8mb3;
@@ -209,13 +211,13 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`rutinas_usuarios` (
   CONSTRAINT `fk_rutinas_usuarios_rutinas1`
     FOREIGN KEY (`rutinas_id`)
     REFERENCES `rutina_go`.`rutinas` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_rutinas_usuarios_usuarios1`
     FOREIGN KEY (`usuarios_id`)
     REFERENCES `rutina_go`.`usuarios` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 2407
 DEFAULT CHARACTER SET = utf8mb3;
@@ -238,13 +240,13 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`ejercicios_usuarios` (
   CONSTRAINT `fk_ejercicios_usuarios_ejercicios1`
     FOREIGN KEY (`ejercicios_id`)
     REFERENCES `rutina_go`.`ejercicios` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_ejercicios_usuarios_rutinas_usuarios1`
     FOREIGN KEY (`rutinas_usuarios_id`)
     REFERENCES `rutina_go`.`rutinas_usuarios` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 67116
 DEFAULT CHARACTER SET = utf8mb3;
@@ -264,7 +266,9 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`medidas_usuarios` (
   INDEX `id_usuario` (`id_usuario` ASC) VISIBLE,
   CONSTRAINT `medidas_usuarios_ibfk_1`
     FOREIGN KEY (`id_usuario`)
-    REFERENCES `rutina_go`.`usuarios` (`id`))
+    REFERENCES `rutina_go`.`usuarios` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -283,10 +287,14 @@ CREATE TABLE IF NOT EXISTS `rutina_go`.`objetivos_usuarios` (
   INDEX `id_objetivos` (`id_objetivos` ASC) VISIBLE,
   CONSTRAINT `objetivos_usuarios_ibfk_1`
     FOREIGN KEY (`id_usuarios`)
-    REFERENCES `rutina_go`.`usuarios` (`id`),
+    REFERENCES `rutina_go`.`usuarios` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `objetivos_usuarios_ibfk_2`
     FOREIGN KEY (`id_objetivos`)
-    REFERENCES `rutina_go`.`objetivos` (`id`))
+    REFERENCES `rutina_go`.`objetivos` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
